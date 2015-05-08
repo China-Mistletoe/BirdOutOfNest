@@ -177,6 +177,7 @@ public class BirdWorld {
 			} else {
 				mIsStandby = true;
 				mIsDeadOnce = true;
+				score=0;
 				// recycleFrameCount=0;
 				// groundFrameCount=0;
 				// skyLeft=0;
@@ -274,14 +275,14 @@ public class BirdWorld {
 				cot++;
 				if (pp.bound.left > 0
 						&& cot >= 1
-						&& (mBird.getBound().right - pp.bound.left > DEFAULT_FLY_DISTANCE || mBird.getBound().left - pp.bound.right > DEFAULT_FLY_DISTANCE)
+						&& (mBird.getBound().right - pp.bound.left > DEFAULT_FLY_DISTANCE || mBird.getBound().left - pp.bound.right > -DEFAULT_FLY_DISTANCE)
 						&& mBird.getBound().bottom - pp.upTop > DEFAULT_FLY_DISTANCE-30) {
 					dead = true;
 					cot = 0;
 					break;
 				} else if (pp.bound.left > 0
 						&& cot >= 1
-						&& (mBird.getBound().right - pp.bound.left > DEFAULT_FLY_DISTANCE || mBird.getBound().left - pp.bound.right > DEFAULT_FLY_DISTANCE)
+						&& (mBird.getBound().right - pp.bound.left > DEFAULT_FLY_DISTANCE || mBird.getBound().left - pp.bound.right > -DEFAULT_FLY_DISTANCE)
 						&& pp.downBottom - mBird.getBound().top > DEFAULT_FLY_DISTANCE-30) {
 					dead = true;
 					cot = 0;

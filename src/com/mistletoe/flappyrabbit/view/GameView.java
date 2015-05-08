@@ -1,6 +1,7 @@
 package com.mistletoe.flappyrabbit.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.AssetManager;
@@ -98,6 +99,7 @@ public class GameView extends SurfaceView implements Runnable,
 	private Rect bound;
 //	private int movingtree=0;
 //	private int movingnest=0;
+	private Intent Serviceintent = new Intent("com.angel.Android.MUSIC"); 
 
 	public boolean getDead() {
 		return mBirdWorld.ifDead();
@@ -107,7 +109,7 @@ public class GameView extends SurfaceView implements Runnable,
 		super(context, attrs);
 		mPaint = new Paint();
 		mPaint.setStrokeWidth(6);
-
+		
 		sp = getContext().getSharedPreferences("BestScore", 0);
 		editor = sp.edit();
 		mMatrix = new Matrix();
@@ -349,6 +351,13 @@ public class GameView extends SurfaceView implements Runnable,
 		mBirdWorld.draw(canvas);
 		// canvas.drawLine(270, 0, 270, 1920, mPaint);
 		// canvas.drawLine(450, 0, 450, 1920, mPaint);
+		if(mBirdWorld.dead){
+			getContext().stopService(Serviceintent); 
+		}
+		if(!mBirdWorld.mIsStandby){
+			getContext().startService(Serviceintent);
+		}
+		
 		if (mBirdWorld.IsStandBy() && !mBirdWorld.mIsDeadOnce()) {
 			canvas.drawBitmap(tree, -150,
 					120, null);
@@ -363,11 +372,11 @@ public class GameView extends SurfaceView implements Runnable,
 			canvas.drawBitmap(birdnest, getWidth() / 4+200,
 					getHeight() / 4 + 250, null);
 		}
-		if (mBirdWorld.IsStandBy() && mBirdWorld.mIsDeadOnce()) {		
+		if (mBirdWorld.IsStandBy() && mBirdWorld.mIsDeadOnce()) {
 			canvas.drawBitmap(score_panel, getWidth() / 5, 700, null);
-			canvas.drawBitmap(scoreBoartNum[s4], 707, 810, null);
-			canvas.drawBitmap(scoreBoartNum[s2], 747, 810, null);
-			canvas.drawBitmap(scoreBoartNum[s], 787, 810, null);
+			canvas.drawBitmap(scoreBoartNum[s4], 730, 805, null);
+			canvas.drawBitmap(scoreBoartNum[s2], 770, 805, null);
+			canvas.drawBitmap(scoreBoartNum[s], 810, 805, null);
 			canvas.drawBitmap(gameover_text, getWidth() / 5 + 50, 450, null);
 			Paint p1 = new Paint();
 			p1.setAntiAlias(true);
@@ -401,7 +410,7 @@ public class GameView extends SurfaceView implements Runnable,
 				mSoundPool.play(id1, 1f, 1f, 1, 0, 1f);
 			}
 			float downBird = mBird.mBound.top += 35;
-			if (dayTime - nightTime < 10) {
+			if (dayTime - nightTime < 20) {
 				if (downBird < getHeight() * 4 / 5 - 100) {
 					canvas.drawBitmap(dieBird, mBird.mBound.left, downBird,
 							null);
@@ -414,7 +423,7 @@ public class GameView extends SurfaceView implements Runnable,
 					canvas.drawBitmap(dieBird2, mBird.mBound.left,
 							getHeight() * 4 / 5 - 100, null);
 				}
-			} else if (dayTime - nightTime >= 10 && dayTime - nightTime < 20) {
+			} else if (dayTime - nightTime >= 20 && dayTime - nightTime < 40) {
 				if (downBird < getHeight() * 4 / 5 - 100) {
 					canvas.drawBitmap(dieBird_3, mBird.mBound.left, downBird,
 							null);
@@ -427,7 +436,7 @@ public class GameView extends SurfaceView implements Runnable,
 					canvas.drawBitmap(dieBird2_3, mBird.mBound.left,
 							getHeight() * 4 / 5 - 100, null);
 				}
-			} else if (dayTime - nightTime >= 20) {
+			} else if (dayTime - nightTime >= 40) {
 				if (downBird < getHeight() * 4 / 5 - 100) {
 					canvas.drawBitmap(dieBird_2, mBird.mBound.left, downBird,
 							null);
@@ -451,26 +460,29 @@ public class GameView extends SurfaceView implements Runnable,
 
 		// 昼夜循环
 		dayTime = getScore;
-		if (dayTime - nightTime < 10) {
+		if (dayTime - nightTime < 20) {
 			mBirdWorld.setSkySkin(mListSkySkin.get(0))
 					.setGroundSkin(mGroundSkin)
 					.setPipesSkin(mListPipesSkin.get(1)).setBird(mBird);
 			mBird.setBirdsSkin(mListBirdsSkin.get(0));
 		}
-		if (dayTime - nightTime >= 10 && dayTime - nightTime < 20) {
+		if (dayTime - nightTime >= 20 && dayTime - nightTime < 40) {
 			mBirdWorld.setSkySkin(mListSkySkin.get(1))
 					.setGroundSkin(mGroundSkin)
 					.setPipesSkin(mListPipesSkin.get(1)).setBird(mBird);
 			mBird.setBirdsSkin(mListBirdsSkin.get(2));
 		}
-		if (dayTime - nightTime >= 20) {
-			if (dayTime - nightTime == 30) {
+		if (dayTime - nightTime >= 40) {
+			if (dayTime - nightTime == 60) {
 				nightTime = dayTime;
 			}
 			mBirdWorld.setSkySkin(mListSkySkin.get(1))
 					.setGroundSkin(mGroundSkin)
 					.setPipesSkin(mListPipesSkin.get(0)).setBird(mBird);
 			mBird.setBirdsSkin(mListBirdsSkin.get(1));
+		}
+		if(isGameOver){
+			getScore=0;
 		}
 
 		// 满十计一分
