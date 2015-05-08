@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/bg_day">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+			android:gravity="center"
+           >
+            <ImageView
+                android:id="@+id/gameOverText"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:src="@drawable/text_game_over" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:gravity="center">
+            <ImageView 
+                android:id="@+id/black1"
+                android:layout_width="wrap_content"
+            	android:layout_height="wrap_content" 
+            	android:layout_weight="1"
+            	android:src="@drawable/black" 
+                />
+            <ImageView 
+                android:id="@+id/thousandNumber"
+                android:layout_width="wrap_content"
+            	android:layout_height="wrap_content" 
+            	android:layout_weight="1"
+            	android:src="@drawable/number_large_00" 
+                />
+            <ImageView 
+                android:id="@+id/hundredNumber"
+                android:layout_width="wrap_content"
+            	android:layout_height="wrap_content" 
+            	android:layout_weight="1"
+            	android:src="@drawable/number_large_00" 
+                />
+            <ImageView 
+                android:id="@+id/tensNumber"
+                android:layout_width="wrap_content"
+            	android:layout_height="wrap_content" 
+            	android:layout_weight="1"
+            	android:src="@drawable/number_large_00" 
+                />
+            <ImageView 
+                android:id="@+id/unitsNumber"
+                android:layout_width="wrap_content"
+            	android:layout_height="wrap_content" 
+            	android:layout_weight="1"
+            	android:src="@drawable/number_large_00" 
+                />
+            <ImageView 
+                android:id="@+id/black2"
+                android:layout_width="wrap_content"
+            	android:layout_height="wrap_content" 
+            	android:layout_weight="1"
+            	android:src="@drawable/black" 
+                />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>
